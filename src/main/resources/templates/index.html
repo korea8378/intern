@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko-KR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+</head>
+<body>
+<h1>hello</h1>
+<form id="test-from">
+    <p>
+        <label for="user-id">아이디</label>
+        <input type="text" name="user_id" id="user-id" placeholder="아이디" required>
+    </p>
+    <p>
+        <input type="submit" value="비밀번호 찾기">
+    </p>
+</form>
+<div id="div-response"></div>
+<script>
+    $( document ).ready(function () {
+        var frm = $('#test-from');
+        frm.submit(function (e) {
+
+            e.preventDefault();
+
+            var userId = $('#user-id').val()
+            $.ajax({
+                url: "//localhost:8080/"+userId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#div-response').append(data.date);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
